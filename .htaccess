@@ -1,0 +1,22 @@
+<IfModule mod_mime.c>
+  AddType application/manifest+json .webmanifest .json
+</IfModule>
+<IfModule mod_headers.c>
+  <Files "manifest.json">
+      Header set Access-Control-Allow-Origin "*"
+  </Files>
+</IfModule>
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^ index.html [L]
+</IfModule>
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType application/manifest+json "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+</IfModule>
+
+
